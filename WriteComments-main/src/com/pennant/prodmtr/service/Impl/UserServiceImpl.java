@@ -71,6 +71,10 @@ public class UserServiceImpl implements UserService {
 	        return "login"; // Password does not match, return "invalid" to indicate verification failure
 	    }
 	}
+	public void forgotPassword(String email,String password)
+	{
+		userdao.forgotPassword(email,password);
+	}
 
 
 }
