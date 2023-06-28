@@ -18,5 +18,6 @@ public interface UserService {
 	public List<Subtask> getUserSubtaskActivities(Role userRole);
 
 	public String verifyUser(User user, HttpSession session);
+	public void forgotPassword(String email,String password);
 	
 }
