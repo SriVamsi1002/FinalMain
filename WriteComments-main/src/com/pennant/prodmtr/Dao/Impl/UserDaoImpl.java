@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.pennant.prodmtr.Dao.Interface.UserDao;
@@ -69,27 +68,18 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> getuserbyemailid(String email) {
-		TypedQuery<User> query = entityManager.createQuery("select m from User m where m.email =:mail", User.class);
-		query.setParameter("mail", email);
+		TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+		query.setParameter("email", email);
 		return query.getResultList();
 	}
 
-	@Override
-	public void UpdatePassword(String password, String finalemail) {
-		String updateQuery = "MERGE INTO User e USING (SELECT :email AS email, :password AS password FROM DUAL) source " +
-		        "ON (e.email = source.email) " +
-		        "WHEN MATCHED THEN UPDATE SET e.userPassword = source.password " +
-		        "WHEN NOT MATCHED THEN INSERT (e.email, e.userPassword) VALUES (source.email, source.password)";
+	public void forgotPassword(String email, String password) {
+		TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+		query.setParameter("email", email);
 
-		Query query = entityManager.createNativeQuery(updateQuery);
-		query.setParameter("email", finalemail);
-		query.setParameter("password", password);
-
-		int updatedCount = query.executeUpdate();
-		if (updatedCount > 0) {
-		    System.out.println("Table updated successfully.");
-		} else {
-		    System.out.println("No rows were updated.");
+		User user = query.getSingleResult();
+		if (user != null) {
+			user.setUserPassword(password);
 		}
-
+	}
 }

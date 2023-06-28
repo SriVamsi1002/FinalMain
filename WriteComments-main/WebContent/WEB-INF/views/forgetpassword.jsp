@@ -147,11 +147,13 @@ function sendotp(email)
 	        
 	      } else if (response !== "invalid") {
 	        var containerDiv = $("#contId");
-	        containerDiv.html('<form action="updatepwd" id="signup-form">' +
+	        containerDiv.html('<form action="updatepwd" id="signup-form" method="post">' +
+	        		 '<label>Email:</label>' +
+	        		    '<input type="text" class="form-control" id="email" name="email" value="' + $("#email").val() + '">' +
 	          '<label>Password:</label>' +
 	          '<input type="password" class="form-control" id="psd1" name="psd1" required>' +
 	          '<label>Confirm Password:</label>' +
-	          '<input type="password" class="form-control" id="psd2" name="psd2" required>' +
+	          '<input type="password" class="form-control" id="psd2" name="password" required>' +
 	          '<div><span id="pmsg"></span></div>' +
 	          '<button type="button" onclick="pwd()">Update Password</button>' +
 	          '</form>');

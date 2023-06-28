@@ -24,6 +24,15 @@ public class UserInput {
 	private String userStatus;
 	private Date userLastUpdatedDate;
 	private short userRole;
+	private String email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getUserDisplayName() {
 		return userDisplayName;
@@ -91,6 +100,7 @@ public class UserInput {
 		user.setUserCreationDate(this.userCreationDate);
 		Role role = new Role();
 		role.setRoleId(this.userRole);
+		user.setEmail(this.email);
 		user.setUserRole(role);
 		return user;
 

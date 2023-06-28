@@ -16,7 +16,6 @@ import com.pennant.prodmtr.model.Entity.Task;
 import com.pennant.prodmtr.model.Entity.User;
 import com.pennant.prodmtr.service.Interface.UserService;
 
-
 @Controller
 public class ProductivityController {
 	UserService userService;
@@ -86,8 +85,10 @@ public class ProductivityController {
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String getprofile(Model model) {
+	public String getprofile(Model model, HttpSession session) {
 		System.out.println("profile called");
+		User user = (User) session.getAttribute("user");
+		model.addAttribute(user);
 		// List<User> User = ProfileService.getProfile(id);
 		return "profile";
 	}
@@ -101,7 +102,7 @@ public class ProductivityController {
 
 	@RequestMapping(value = "/editsuccess", method = RequestMethod.POST)
 	public String geteditsuccess(Model model, @RequestParam("id") Integer id,
-			@RequestParam("Password") String Password) {
+			@RequestParam("confirmPassword") String Password) {
 		System.out.println("editsuccess");
 		userService.UpdatePassword(id, Password);
 		model.addAttribute("id", id);

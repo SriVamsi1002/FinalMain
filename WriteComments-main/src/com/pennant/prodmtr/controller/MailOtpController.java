@@ -49,9 +49,8 @@ public class MailOtpController {
 	@ResponseBody
 	public String verifyEmail(@RequestParam("email") String email) {
 		// System.out.println("email valid method");
-		finalemail = email;
-		System.out.println(finalemail);
-		u = userdao.getuserbyemailid(finalemail);
+		System.out.println(email);
+		u = userdao.getuserbyemailid(email);
 		if (u == null)
 			return "no";
 		return "yes"; // Return the generated OTP as the response
@@ -83,12 +82,11 @@ public class MailOtpController {
 		}
 	}
 
-	@RequestMapping(value = "/updatepwd", method = RequestMethod.GET)
-	public String usersignup(@RequestParam("psd2") String password, Model model) {
+	@RequestMapping(value = "/updatepwd", method = RequestMethod.POST)
+	public String usersignup(@RequestParam("email") String email, @RequestParam("password") String password) {
 		// cdao.updatePassword(p2, finalemail);
-		System.out.println(password + "is password");
-		userdao.UpdatePassword(password, finalemail);
+		// System.out.println(password + "is password");
+		userdao.forgotPassword(email, password);
 		return "login";
 	}
-
 }

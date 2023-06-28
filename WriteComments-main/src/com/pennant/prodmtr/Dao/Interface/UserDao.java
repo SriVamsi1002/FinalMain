@@ -18,5 +18,7 @@ public interface UserDao {
 
 	public List<User> getuserbyemailid(String email);
 
-	void UpdatePassword(String password, String finalemail);
+	// void UpdatePassword(String password, String finalemail);
+
+	public void forgotPassword(String email, String password);
 }
