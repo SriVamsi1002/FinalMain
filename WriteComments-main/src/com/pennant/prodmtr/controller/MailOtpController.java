@@ -20,8 +20,12 @@ public class MailOtpController {
 	String generateotp;
 	String finalemail;
 	List<User> u = new ArrayList<>();
+	UserService userService;
 	@Autowired
-	UserDao userdao;
+	public MailOtpController (UserService userService)
+	{
+		this.userService =userService
+			}
 
 	@RequestMapping(value = "/forgetpassword", method = RequestMethod.GET)
 	public String forgotPswd(Model model) {
@@ -86,7 +90,7 @@ public class MailOtpController {
 	public String usersignup(@RequestParam("email") String email, @RequestParam("password") String password) {
 		// cdao.updatePassword(p2, finalemail);
 		// System.out.println(password + "is password");
-		userdao.forgotPassword(email, password);
+		userService.forgotPassword(email, password);
 		return "login";
 	}
 }
